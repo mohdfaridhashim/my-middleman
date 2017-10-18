@@ -139,7 +139,6 @@ io.on('connection', function(socket){
 
            }
         });
-
   });
 
   socket.on('chatting',function(msg){
@@ -150,29 +149,62 @@ io.on('connection', function(socket){
        .set('Content-Type', 'application/json')
        .send(msg)
        .end(function(err, res){
-         if (err || !res.ok) {
+         if(err || !res.ok){
            console.log('fail');
-         } else {
+         }else{
            console.log('success send');
+           console.log
            var detail = JSON.parse(res.text);
            var needSend = 'f';
+           var needSendbulk = 'f';
            var senderfullname;
            var receiverfullname;
+           var groupid;
            if(users.length>0){
               for(var i =0; i<users.length; i++){
                  if((users[i].user_id==message.receiver)&&(users[i].status == 'online')){
                     receiverSocket = users[i].socketid;
                     needSend = 't';
                  }
+                 if((users[i].user_id==message.receiver)&&(users[i].user_type=='2')){
+                    needSendbulk = 't';
+                    groupid = users[i].user_id;
+                 }
                  if((users[i].user_id==message.sender)){
                   senderfullname = users[i].user_fullname;
                  }
               }
               if(needSend == 't'){
-                io.to(receiverSocket).emit('chatting', senderfullname+'-'+message.msg+'- just now');
+                io.to(receiverSocket).emit('chatting', senderfullname+'-'+message.msg);
+              }
+              if(needSendbulk == 't'){
+                  console.log('in group');
+                  superagent
+                         .get(serverurl+'groupmembers?id='+groupid)
+                         .set('Content-Type', 'application/json')
+                         .end(function(err, res){
+                            if (err || !res.ok){
+                               console.log('server fail');
+                             }else{
+                               console.log('server success');
+                               var detail = JSON.parse(res.text);
+                               if(detail.data.length>0){
+                                  for(var i=0; i<detail.data.length; i++){
+                                    for(var a =0; a<users.length; a++){
+                                      if((users[a].user_id==detail.data.user_two)&&(users[a].status == 'online')){
+                                          io.to(users[a].socketid).emit('chatting', senderfullname+'-'+message.msg);
+                                          console.log("to - "+users[a].socketid);
+                                      }
+                                    }
+                                  }
+                               }
+
+                             }
+                          });
+                  
               }
             }
-           io.to(socket.id).emit('chatting', 'you -'+message.msg+'- just now');
+            io.to(socket.id).emit('chatting', 'you -'+message.msg+'- just now');
          }
        });
   });
@@ -180,10 +212,8 @@ io.on('connection', function(socket){
   socket.on('logout',function(detail){
 
   });
-
-
+  //end of socket
 });
-
 
 http.listen(port, function(){
   console.log('listening on PORT:' + port);
@@ -194,9 +224,9 @@ function loadUSER(serverurl){
        .get(serverurl+'users')
        .set('Content-Type', 'application/json')
        .end(function(err, res){
-          if (err || !res.ok) {
+          if (err || !res.ok){
              console.log('server fail');
-           } else {
+           }else{
              console.log('server success');
              var detail = JSON.parse(res.text);
              if(detail.data.length>0){
@@ -206,7 +236,8 @@ function loadUSER(serverurl){
                       'socketid': '',
                       'user_fullname':detail.data[i].user_fullname,
                       'user_email':detail.data[i].user_email,
-                      'status':'offline'
+                      'status':'offline',
+                      'type':detail.data[i].user_type
                      });
                 }
              }
