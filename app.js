@@ -177,32 +177,6 @@ io.on('connection', function(socket){
               if(needSend == 't'){
                 io.to(receiverSocket).emit('chatting', senderfullname+'-'+message.msg);
               }
-              if(needSendbulk == 't'){
-                  console.log('in group');
-                  superagent
-                         .get(serverurl+'groupmembers?id='+groupid)
-                         .set('Content-Type', 'application/json')
-                         .end(function(err, res){
-                            if (err || !res.ok){
-                               console.log('server fail');
-                             }else{
-                               console.log('server success');
-                               var detail = JSON.parse(res.text);
-                               if(detail.data.length>0){
-                                  for(var i=0; i<detail.data.length; i++){
-                                    for(var a =0; a<users.length; a++){
-                                      if((users[a].user_id==detail.data.user_two)&&(users[a].status == 'online')){
-                                          io.to(users[a].socketid).emit('chatting', senderfullname+'-'+message.msg);
-                                          console.log("to - "+users[a].socketid);
-                                      }
-                                    }
-                                  }
-                               }
-
-                             }
-                          });
-                  
-              }
             }
             io.to(socket.id).emit('chatting', 'you -'+message.msg+'- just now');
          }
