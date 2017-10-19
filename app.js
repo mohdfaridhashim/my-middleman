@@ -175,10 +175,12 @@ io.on('connection', function(socket){
                  }
               }
               if(needSend == 't'){
-                io.to(receiverSocket).emit('chatting', senderfullname+'-'+message.msg);
+                var sendJSON = JSON.stringify({ to: senderfullname, msg: message.msg, type: 'send' });
+                io.to(receiverSocket).emit('chatting', sendJSON);
               }
             }
-            io.to(socket.id).emit('chatting', 'you -'+message.msg+'- just now');
+            var youJSON = JSON.stringify({ to: 'you', msg: message.msg, type:'receive' });
+            io.to(socket.id).emit('chatting', youJSON);
          }
        });
   });
