@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 const superagent = require('superagent');
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
-var serverurl = 'http://chat.dev/';
+var serverurl = 'http://rest.digitaloneserver.com/';
 //users
 var users = [];
 loadUSER(serverurl); //load user data from server API
