@@ -113,7 +113,6 @@ io.on('connection', function(socket){
              if(conversationChat.statusCODE == 1){
                if(conversationChat.detail.length>0){
                   for(var i=0; i<conversationChat.detail.length; i++){
-                    var sendJSON = JSON.stringify({ to: senderfullname, msg: message.msg, type: 'send' });
                     chatArray.push('<li>'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
                   }
                   /*if(users.length>0){
