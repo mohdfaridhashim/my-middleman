@@ -110,11 +110,10 @@ io.on('connection', function(socket){
            } else {
              console.log('chat success');
              var conversationChat = JSON.parse(res.text);
-             console.log(conversationChat);
              if(conversationChat.statusCODE == 1){
                if(conversationChat.detail.length>0){
                   for(var i=0; i<conversationChat.detail.length; i++){
-                    receiver = conversationChat.detail.user_id;
+                    var sendJSON = JSON.stringify({ to: senderfullname, msg: message.msg, type: 'send' });
                     chatArray.push('<li>'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
                   }
                   /*if(users.length>0){
