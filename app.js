@@ -123,12 +123,10 @@ io.on('connection', function(socket){
              if(conversationChat.statusCODE == 1){
                if(conversationChat.detail.length>0){
                   for(var i=0; i<conversationChat.detail.length; i++){
-                    console.log(who);
-                    console.log(conversationChat.detail[i].user_id);
                     if(who == conversationChat.detail[i].user_id){
-                      chatArray.push('<li class="owner">'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
+                      chatArray.push('<li class="col-xs-12 col-lg-12"><span class="pull-right">'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</span></li>');
                     }else{
-                      chatArray.push('<li>'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
+                      chatArray.push('<li class="col-xs-12 col-lg-12"><span class="pull-left">'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
                     }
                     
                   }
