@@ -103,9 +103,9 @@ io.on('connection', function(socket){
       var needSend = 'f';
       var who;
       for(var i =0; i<users.length; i++){
-        if(socket.id == users.socketid){
+        if(socket.id == users[i].socketid){
           who = users.user_id;
-          console.log(users.user_id);
+          console.log('owner:'+users.user_id);
         }
       }
       superagent
