@@ -124,9 +124,9 @@ io.on('connection', function(socket){
                if(conversationChat.detail.length>0){
                   for(var i=0; i<conversationChat.detail.length; i++){
                     if(who == conversationChat.detail[i].user_id){
-                      chatArray.push('<li class="col-xs-12 col-lg-12"><span class="pull-right">'+conversationChat.detail[i].user_fullname+'<small>'+conversationChat.detail[i].reply+' '+conversationChat.detail[i].time_chat+'</small></span></li>');
+                      chatArray.push('<li class="col-xs-12 col-lg-12"><span class="pull-right">'+conversationChat.detail[i].reply+'<small>'+conversationChat.detail[i].user_fullname+' '+conversationChat.detail[i].time_chat+'</small></span></li>');
                     }else{
-                      chatArray.push('<li class="col-xs-12 col-lg-12"><span class="pull-left">'+conversationChat.detail[i].user_fullname+'<small>'+conversationChat.detail[i].reply+' '+conversationChat.detail[i].time_chat+'</small></span></li>');
+                      chatArray.push('<li class="col-xs-12 col-lg-12"><span class="pull-left">'+conversationChat.detail[i].reply+'<small>'+conversationChat.detail[i].user_fullname+' '+conversationChat.detail[i].time_chat+'</small></span></li>');
                     }
                     
                   }
