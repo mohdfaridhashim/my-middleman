@@ -103,6 +103,8 @@ io.on('connection', function(socket){
       var needSend = 'f';
       var who;
       for(var i =0; i<users.length; i++){
+        console.log(users[i].socketid);
+        console.log(socket.id);
         if(socket.id == users[i].socketid){
           who = users[i].user_id;
           console.log('owner:'+users[i].user_id);
