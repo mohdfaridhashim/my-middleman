@@ -105,6 +105,7 @@ io.on('connection', function(socket){
       for(var i =0; i<users.length; i++){
         if(socket.id == users.socketid){
           who = users.user_id;
+          console.log(users.user_id);
         }
       }
       superagent
