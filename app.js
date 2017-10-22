@@ -119,6 +119,8 @@ io.on('connection', function(socket){
              if(conversationChat.statusCODE == 1){
                if(conversationChat.detail.length>0){
                   for(var i=0; i<conversationChat.detail.length; i++){
+                    console(who);
+                    console(conversationChat.detail[i].user_id);
                     if(who == conversationChat.detail[i].user_id){
                       chatArray.push('<li class="owner">'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
                     }else{
