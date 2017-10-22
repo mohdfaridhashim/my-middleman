@@ -101,6 +101,12 @@ io.on('connection', function(socket){
       var receiver;
       var receiverSocket;
       var needSend = 'f';
+      var who;
+      for(var i =0; i<users.length; i++){
+        if(socket.id == users.socketid){
+          who = users.user_id;
+        }
+      }
       superagent
        .get(serverurl+'showTalk?cid='+cid)
        .set('Content-Type', 'application/json')
@@ -113,7 +119,12 @@ io.on('connection', function(socket){
              if(conversationChat.statusCODE == 1){
                if(conversationChat.detail.length>0){
                   for(var i=0; i<conversationChat.detail.length; i++){
-                    chatArray.push('<li>'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
+                    if(who == conversationChat.detail[i].user_id){
+                      chatArray.push('<li class="owner">'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
+                    }else{
+                      chatArray.push('<li>'+conversationChat.detail[i].user_fullname+'-'+conversationChat.detail[i].reply+'-'+conversationChat.detail[i].time_chat+'</li>');
+                    }
+                    
                   }
                   /*if(users.length>0){
                     for(var i =0; i<users.length; i++){
