@@ -72,7 +72,11 @@ io.on('connection', function(socket){
                     if(detail.chat[i].detail != null){
                       console.log(i);
                       console.log(detail.chat[i].detail);
-                      var txt = '<li><a href="#" onclick="chatPage('+detailUser.user_id+','+detail.chat[i].user_id+','+detail.chat[i].c_id+');return false;" class="clearfix"><img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle"><div class="friend-name"><strong>' + detail.chat[i].user_email + '</strong></div><div class="last-message text-muted">'+detail.chat[i].detail.reply+'</div><small class="time text-muted">' + detail.chat[i].detail.time_chat + '</small><small class="chat-alert text-muted"><i class="fa fa-check"></i></small></a></li>';
+                      if(detail.chat[i].detail.msgtype =='2'){
+                        var txt = '<li><a href="#" onclick="chatPage('+detailUser.user_id+','+detail.chat[i].user_id+','+detail.chat[i].c_id+');return false;" class="clearfix"><img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle"><div class="friend-name"><strong>' + detail.chat[i].user_email + '</strong></div><div class="last-message text-muted"><i class="icon-camera-retro"></i>photo</div><small class="time text-muted">' + detail.chat[i].detail.time_chat + '</small><small class="chat-alert text-muted"><i class="fa fa-check"></i></small></a></li>';
+                      }else{
+                        var txt = '<li><a href="#" onclick="chatPage('+detailUser.user_id+','+detail.chat[i].user_id+','+detail.chat[i].c_id+');return false;" class="clearfix"><img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle"><div class="friend-name"><strong>' + detail.chat[i].user_email + '</strong></div><div class="last-message text-muted">'+detail.chat[i].detail.reply+'</div><small class="time text-muted">' + detail.chat[i].detail.time_chat + '</small><small class="chat-alert text-muted"><i class="fa fa-check"></i></small></a></li>';
+                      }
                       conversation.push(txt);
                       defaultValue = 't'; 
                     }else{
